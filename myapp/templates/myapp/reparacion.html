@@ -13,19 +13,22 @@
                 <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
                     <div class="card-body">
                         <h5 class="card-title text-primary">
-                            {{ reparacion.equipo }} - {{ reparacion.tecnico }}
+                            {{ reparacion.equipo }} - {{ reparacion.tecnico|default:"Sin asignar" }}
                         </h5>
                         <p class="card-text mb-1">
-                            <strong>Problema reportado:</strong> {{ reparacion.problema_reportado }}
+                            <strong>Problema:</strong> {{ reparacion.problema_reportado }}
                         </p>
                         <p class="card-text mb-1">
-                            <strong>Solución:</strong> {{ reparacion.solucion }}
+                            <strong>Solución:</strong> {{ reparacion.solucion|default:"Pendiente" }}
                         </p>
                         <p class="card-text mb-1">
-                            <strong>Costo:</strong> {{ reparacion.costo }}
+                            <strong>Costo:</strong> ${{ reparacion.costo }}
                         </p>
                         <p class="card-text">
-                            <strong>Estado:</strong> {{ reparacion.estado }}
+                            <strong>Estado:</strong> 
+                            <span class="badge bg-{% if reparacion.estado == 'FINALIZADO' or reparacion.estado == 'ENTREGADO' %}success{% elif reparacion.estado == 'ESPERA' %}warning{% else %}primary{% endif %}">
+                                {{ reparacion.estado }}
+                            </span>
                         </p>
                     </div>
                 </div>
