@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestión de Clientes{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Gestión de Clientes</h1>
+        <p>Aquí puedes gestionar la información de tus clientes.</p>
+        
+        <div class="row">
+            {% for cliente in clientes %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">
+                            {{ cliente.apellido }} {{ cliente.nombre }}
+                        </h5>
+                        <p class="card-text mb-1">
+                            <strong>Email:</strong> {{ cliente.email }}
+                        </p>
+                        <p class="card-text mb-1">
+                            <strong>Teléfono:</strong> {{ cliente.telefono }}
+                        </p>
+                        <p class="card-text">
+                            <strong>Dirección:</strong> {{ cliente.direccion }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-muted text-center">No hay clientes registrados.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
