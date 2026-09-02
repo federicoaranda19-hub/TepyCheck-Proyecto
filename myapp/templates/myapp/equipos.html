@@ -4,7 +4,10 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Gestión de Equipos</h1>
+        <h1 class="text-center mb-4 animate__animated animate__lightSpeedInLeft">
+            Gestión de Equipos
+        </h1>
+
         <p>Aquí puedes gestionar la información de tus equipos.</p>
         
         <div class="row">
@@ -15,21 +18,26 @@
                         <h5 class="card-title text-primary">
                             {{ equipo.cliente }} - {{ equipo.tipo }}
                         </h5>
+
                         <p class="card-text mb-1">
                             <strong>Marca:</strong> {{ equipo.marca }}
                         </p>
+
                         <p class="card-text mb-1">
                             <strong>Modelo:</strong> {{ equipo.modelo }}
                         </p>
+
                         <p class="card-text mb-1">
                             <strong>Serial:</strong> {{ equipo.numero_serie }}
                         </p>
+
                         <p class="card-text">
                             <strong>Observaciones:</strong> {{ equipo.observaciones }}
                         </p>
                     </div>
                 </div>
             </div>
+
             {% empty %}
             <p class="text-muted text-center">No hay equipos registrados.</p>
             {% endfor %}
