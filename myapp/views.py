@@ -1,26 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente, Tecnico, Equipo, Reparacion
-from .forms import ClienteForm
+from .forms import ClienteForm, ReparacionForm
 
 def index(request):
     context = {"mensaje": "Ofrecemos servicios de reparación de computadoras, mantenimiento y soporte técnico."}
     return render(request, "myapp/index.html", context)
 
+# ----------------- CLIENTES -----------------
+
 def clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'myapp/clientes.html', {'clientes': clientes})
-
-def tecnicos(request):
-    tecnicos = Tecnico.objects.all()
-    return render(request, 'myapp/tecnicos.html', {'tecnicos': tecnicos})
-
-def equipos(request):
-    equipos = Equipo.objects.all()
-    return render(request, 'myapp/equipos.html', {'equipos': equipos})
-
-def reparaciones(request):
-    reparaciones = Reparacion.objects.all()
-    return render(request, 'myapp/reparacion.html', {'reparaciones': reparaciones})
 
 def agregar_cliente(request):
     if request.method == 'POST':
@@ -31,7 +21,6 @@ def agregar_cliente(request):
     else:
         form = ClienteForm()
     return render(request, 'myapp/agregar_cliente.html', {'form': form})
-
 
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
@@ -44,10 +33,53 @@ def editar_cliente(request, pk):
         form = ClienteForm(instance=cliente)
     return render(request, 'myapp/editar_cliente.html', {'form': form, 'cliente': cliente})
 
-
 def eliminar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
         cliente.delete()
         return redirect('myapp:clientes')
     return render(request, 'myapp/eliminar_cliente.html', {'cliente': cliente})
+
+# ----------------- TECNICOS Y EQUIPOS -----------------
+
+def tecnicos(request):
+    tecnicos = Tecnico.objects.all()
+    return render(request, 'myapp/tecnicos.html', {'tecnicos': tecnicos})
+
+def equipos(request):
+    equipos = Equipo.objects.all()
+    return render(request, 'myapp/equipos.html', {'equipos': equipos})
+
+# ----------------- REPARACIONES -----------------
+
+def reparaciones(request):
+    reparaciones = Reparacion.objects.all()
+    return render(request, 'myapp/reparacion.html', {'reparaciones': reparaciones})
+
+def agregar_reparacion(request):
+    if request.method == 'POST':
+        form = ReparacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:reparaciones')
+    else:
+        form = ReparacionForm()
+    return render(request, 'myapp/agregar_reparacion.html', {'form': form})
+
+def editar_reparacion(request, pk):
+    reparacion = get_object_or_404(Reparacion, pk=pk)
+    if request.method == 'POST':
+        form = ReparacionForm(request.POST, instance=reparacion)
+        if form.is_valid():
+            form.save()
+            return redirect('myapp:reparaciones')
+    else:
+        form = ReparacionForm(instance=reparacion)
+    return render(request, 'myapp/editar_reparacion.html', {'form': form, 'reparacion': reparacion})
+
+def eliminar_reparacion(request, pk):
+    reparacion = get_object_or_404(Reparacion, pk=pk)
+    if request.method == 'POST':
+        reparacion.delete()
+        return redirect('myapp:reparaciones')
+    return render(request, 'myapp/eliminar_reparacion.html', {'reparacion': reparacion})

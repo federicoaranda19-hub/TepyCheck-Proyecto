@@ -3,39 +3,54 @@
 {% block title %}Gestión de Reparaciones{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Gestión de Reparaciones</h1>
-        <p>Aquí puedes gestionar la información de tus reparaciones.</p>
-        
-        <div class="row">
-            {% for reparacion in reparaciones %}
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">
-                            {{ reparacion.equipo }} - {{ reparacion.tecnico|default:"Sin asignar" }}
-                        </h5>
-                        <p class="card-text mb-1">
-                            <strong>Problema:</strong> {{ reparacion.problema_reportado }}
-                        </p>
-                        <p class="card-text mb-1">
-                            <strong>Solución:</strong> {{ reparacion.solucion|default:"Pendiente" }}
-                        </p>
-                        <p class="card-text mb-1">
-                            <strong>Costo:</strong> ${{ reparacion.costo }}
-                        </p>
-                        <p class="card-text">
-                            <strong>Estado:</strong> 
-                            <span class="badge bg-{% if reparacion.estado == 'FINALIZADO' or reparacion.estado == 'ENTREGADO' %}success{% elif reparacion.estado == 'ESPERA' %}warning{% else %}primary{% endif %}">
-                                {{ reparacion.estado }}
-                            </span>
-                        </p>
-                    </div>
+<div class="container mt-4">
+    <h1 class="text-center mb-4 animate__animated animate__swing">Gestión de Reparaciones</h1>
+    <p class="text-center mb-4">Aquí puedes gestionar la información de tus reparaciones, incluyendo agregar nuevas reparaciones, editar detalles existentes y dar seguimiento al estado.</p>
+    
+    <div class="text-end mb-4">
+        <a class="btn btn-success bi bi-tools" href="{% url 'myapp:agregar_reparacion' %}">
+            <span class="ms-2">Nueva Reparación</span>
+        </a>
+    </div>
+
+    <div class="row">
+        {% for reparacion in reparaciones %}
+        <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-down">
+            <div class="card shadow-sm h-100 bg-info-subtle text-info-emphasis">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        {{ reparacion.equipo }}
+                    </h5>
+                    <p class="card-text mb-1">
+                        <strong>Técnico:</strong> {{ reparacion.tecnico|default:"No asignado" }}
+                    </p>
+                    <p class="card-text mb-1">
+                        <strong>Problema reportado:</strong> {{ reparacion.problema_reportado }}
+                    </p>
+                    <p class="card-text mb-1">
+                        <strong>Solución:</strong> {{ reparacion.solucion|default:"En revisión" }}
+                    </p>
+                    <p class="card-text mb-1">
+                        <strong>Costo:</strong> ${{ reparacion.costo }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Estado:</strong> <span class="badge bg-primary">{{ reparacion.get_estado_display }}</span>
+                    </p>
+                </div>
+                <!-- Botones de Editar y Eliminar -->
+                <div class="card-footer text-center bg-transparent border-0 pb-3">
+                    <a href="{% url 'myapp:editar_reparacion' reparacion.pk %}" class="btn btn-warning btn-sm bi bi-pencil-square me-2" title="Editar"></a>
+                    
+                    <form action="{% url 'myapp:eliminar_reparacion' reparacion.pk %}" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar la reparación #{{ reparacion.id }} del equipo {{ reparacion.equipo }}?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm bi bi-trash3-fill" title="Eliminar"></button>
+                    </form>
                 </div>
             </div>
-            {% empty %}
-            <p class="text-muted text-center">No hay reparaciones registradas.</p>
-            {% endfor %}
         </div>
+        {% empty %}
+        <p class="text-muted text-center">No hay reparaciones registradas.</p>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

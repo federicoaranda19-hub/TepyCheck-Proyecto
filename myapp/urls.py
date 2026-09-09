@@ -14,4 +14,10 @@ urlpatterns = [
     path('clientes/agregar/', views.agregar_cliente, name='agregar_cliente'),
     path('clientes/editar/<int:pk>/', views.editar_cliente, name='editar_cliente'),
     path('clientes/eliminar/<int:pk>/', views.eliminar_cliente, name='eliminar_cliente'),
+    
+    # CRUD Reparaciones
+    path('reparaciones/', views.reparaciones, name='reparaciones'),
+    path('reparaciones/agregar/', views.agregar_reparacion, name='agregar_reparacion'),
+    path('reparaciones/editar/<int:pk>/', views.editar_reparacion, name='editar_reparacion'),
+    path('reparaciones/eliminar/<int:pk>/', views.eliminar_reparacion, name='eliminar_reparacion'),
 ]
