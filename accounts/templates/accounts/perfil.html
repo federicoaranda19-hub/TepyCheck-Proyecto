@@ -3,9 +3,10 @@
 {% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
-<div class="container mt-5 col-md-6">
+<div class="container mt-5 col-md-6 col-lg-5">
     <h3 class="text-center mb-4">Perfil de {{ request.user.username }}</h3>
 
+    <!-- Tus mensajes de éxito -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -15,10 +16,34 @@
         {% endfor %}
     {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary w-100">Guardar cambios</button>
-    </form>
+    <div class="card shadow-sm p-4">
+        <!-- Acá mostramos la foto del avatar (si existe) -->
+        <div class="text-center mb-4">
+            {% if request.user.perfil.avatar %}
+                <img src="{{ request.user.perfil.avatar.url }}" alt="Avatar de {{ request.user.username }}" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+            {% else %}
+                <div class="bg-secondary text-white rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 150px; height: 150px; font-size: 4rem;">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Formulario -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold" for="{{ form.avatar.id_for_label }}">Subir nuevo Avatar:</label>
+                {{ form.avatar }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" for="{{ form.fecha_nacimiento.id_for_label }}">Fecha de Nacimiento:</label>
+                {{ form.fecha_nacimiento }}
+            </div>
+
+            <button class="btn btn-primary w-100 mt-3">Guardar cambios</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

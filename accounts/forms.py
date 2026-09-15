@@ -16,3 +16,7 @@ class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
         fields = ['avatar', 'fecha_nacimiento']
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'}),
+        }

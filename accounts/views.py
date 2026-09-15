@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistroUsuarioForm, PerfilForm
 from .models import Perfil
 
-
 def registro(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
@@ -21,7 +20,9 @@ def registro(request):
 
 @login_required
 def perfil(request):
-    perfil = request.user.perfil
+
+    perfil, created = Perfil.objects.get_or_create(user=request.user)
+    
     if request.method == 'POST':
         form = PerfilForm(request.POST, request.FILES, instance=perfil)
         if form.is_valid():
