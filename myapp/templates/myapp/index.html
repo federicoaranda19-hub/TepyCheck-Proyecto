@@ -21,11 +21,11 @@
             </div>
 
             <div class="carousel-item">
-                <img src="{% static 'myapp/img/herramientas.jpg' %}" class="d-block w-100" alt="Herramientas" style="height: 450px; object-fit: cover;">
+                <img src="{% static 'myapp/img/herramientas2.png' %}" class="d-block w-100" alt="Herramientas" style="height: 450px; object-fit: cover;">
             </div>
 
             <div class="carousel-item">
-                <img src="{% static 'myapp/img/icono.png' %}" class="d-block w-100" alt="Icono" style="height: 450px; object-fit: cover;">
+                <img src="{% static 'myapp/img/icono4.jfif' %}" class="d-block w-100" alt="Icono" style="height: 450px; object-fit: cover;">
             </div>
 
             <div class="carousel-item">
@@ -62,71 +62,62 @@
             <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
                     <h5 class="card-title">Clientes</h5>
-
                     <p class="card-text">
                         Gestión de los clientes de la empresa.
                     </p>
-
-                    <a href="#" class="btn btn-primary">
+                    <a href="{% url 'myapp:clientes' %}" class="btn btn-primary">
                         Ver clientes
                     </a>
                 </div>
             </div>
         </div>
 
-
         <!-- Técnicos -->
         <div class="col-md-6 col-lg-3">
             <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
                     <h5 class="card-title">Técnicos</h5>
-
                     <p class="card-text">
                         Información de los técnicos.
                     </p>
-
-                    <a href="#" class="btn btn-success">
+                    <a href="{% url 'myapp:tecnicos' %}" class="btn btn-success">
                         Ver técnicos
                     </a>
                 </div>
             </div>
         </div>
 
-
         <!-- Equipos -->
         <div class="col-md-6 col-lg-3">
             <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
                     <h5 class="card-title">Equipos</h5>
-
                     <p class="card-text">
                         Consulta de los equipos registrados.
                     </p>
-
-                    <a href="#" class="btn btn-warning">
+                    <a href="{% url 'myapp:equipos' %}" class="btn btn-warning">
                         Ver equipos
                     </a>
                 </div>
             </div>
         </div>
 
-
         <!-- Reparaciones -->
         <div class="col-md-6 col-lg-3">
             <div class="card shadow-sm h-100">
                 <div class="card-body text-center">
                     <h5 class="card-title">Reparaciones</h5>
-
                     <p class="card-text">
                         Gestión de las reparaciones.
                     </p>
-
-                    <a href="#" class="btn btn-info">
+                    <a href="{% url 'myapp:reparaciones' %}" class="btn btn-info">
                         Ver reparaciones
                     </a>
                 </div>
             </div>
         </div>
+
+    </div>
 
     </div>
 
